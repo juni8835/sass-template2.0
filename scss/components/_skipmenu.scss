@@ -1,0 +1,17 @@
+//============
+// Components - Skip Menu
+//============
+@use '../abstracts' as *;
+
+.skip-to-content button {
+  position: absolute;
+  max-height: 0;
+  overflow: hidden;
+
+  &:focus {
+    max-height: none;
+    overflow: visible;
+    margin: 0 1.6rem;
+    outline: 4px solid clr(primary-500);
+  }
+}

@@ -1,0 +1,59 @@
+//============
+// Components - Icons
+//============
+@use '../abstracts' as *;
+
+.no-icon {
+  fill: currentColor;
+  display: inline-block;
+  flex-shrink: 0;
+
+  &--xxsmall {
+    @include box(1.4rem);
+  }
+  &--xsmall {
+    @include box(1.6rem);
+  }
+  &--small {
+    @include box(2rem);
+  }
+  &--medium {
+    @include box(2.4rem);
+  }
+  &--large {
+    @include box(3.2rem);
+  }
+  &--xlarge {
+    @include box(4.8rem);
+  }
+  &--xxlarge {
+    @include box(6.4rem);
+  }
+  &--xxxlarge {
+    @include box(9.6rem);
+  }
+}
+
+.no-icon-color {
+  &--neutral {
+    color: #2d2f31;
+  }
+  &--positive {
+    color: #19a38c;
+  }
+  &--negative {
+    color: #f4522d;
+  }
+  &--info {
+    color: #5624d0;
+  }
+  &--warning {
+    color: #f69c08;
+  }
+  &--subdued {
+    color: #6a6f73;
+  }
+  &--subdued-inverted {
+    color: #d1d7dc;
+  }
+}

@@ -1,0 +1,11 @@
+@use 'sass:math';
+@use './colors';
+@use './fonts';
+
+@function clr($color) {
+  @return var(--clr-#{$color});
+}
+
+@function fs($size) {
+  @return var(--fs-#{$size});
+}

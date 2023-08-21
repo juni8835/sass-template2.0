@@ -1,0 +1,50 @@
+//============
+// Base - Reset
+//============
+
+@use 'sass:math';
+@use '../abstracts' as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  font-size: 62.5%;
+}
+body {
+  font-family: $family--NotoSansKr;
+  font-size: $size--base;
+  line-height: $scale--600;
+  font-weight: $weight--400;
+  color: clr(gray-900);
+  @include helper();
+}
+
+img {
+  width: 100%;
+}
+
+a {
+  color: clr('primary-500');
+  text-decoration: none;
+}
+
+button {
+  background: none;
+  border: none;
+}
+
+input,
+textarea,
+select,
+option {
+  border: none;
+  color: clr(gray-900);
+}

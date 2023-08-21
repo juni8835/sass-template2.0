@@ -1,0 +1,12 @@
+//============
+// Page - Home
+//============
+@use '../abstracts' as *;
+
+h1 {
+  @include mq(sm) {
+    color: clr('primary-600');
+  }
+  @include heading(2xl);
+  font-weight: 600;
+}

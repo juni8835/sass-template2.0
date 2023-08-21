@@ -1,0 +1,164 @@
+//============
+// Mixins
+//============
+
+@use 'sass:math';
+@use './breakpoints' as bp;
+@use './fonts' as fs;
+
+//Breakpoints
+//Ex: @include breakpoint(lg) {... rules}
+
+@mixin box($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin heading($name) {
+  // If the key exists in the map
+  @if map-has-key(fs.$fonts, $name) {
+    $heading: map-get(fs.$fonts, $name);
+
+    font-size: map-get($heading, 'font-size');
+    font-weight: map-get($heading, 'font-weight');
+    line-height: map-get($heading, 'line-height');
+  }
+  // If the key doesn't exist in the map
+  @else {
+    @error "no found `#{$name}`. " + 
+            "Please make sure it is defined in `$fonts` map.";
+  }
+}
+
+@mixin mq($name) {
+  // If the key exists in the map
+  @if map-has-key(bp.$breakpoints, $name) {
+    @media screen and (min-width: map-get(bp.$breakpoints, $name)) {
+      @content;
+    }
+  }
+  // If the key doesn't exist in the map
+  @else {
+    @error "Unfortunately, no value could be retrieved from `#{$breakpoint}`. " + 
+            "Please make sure it is defined in `$breakpoints` map.";
+  }
+}
+
+//Helper
+//Ex: @include helper (will create a indicator showing the current breakpoint)
+@mixin helper {
+  &:before {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    content: 'Small';
+    font-family: sans-serif;
+    letter-spacing: 0.05rem;
+    color: #fff;
+    font-weight: 700;
+    background: #000;
+    padding: 1rem 2rem;
+  }
+
+  @include mq(xs) {
+    &:before {
+      content: 'xsmall';
+    }
+  }
+
+  @include mq(sm) {
+    &:before {
+      content: 'small';
+    }
+  }
+
+  @include mq(md) {
+    &:before {
+      content: 'medium';
+    }
+  }
+
+  @include mq(lg) {
+    &:before {
+      content: 'large';
+    }
+  }
+
+  @include mq(xxl) {
+    &:before {
+      content: 'xlarge';
+    }
+  }
+}
+
+// =============================================================================
+// String Replace
+// =============================================================================
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace +
+      str-replace(
+        str-slice($string, $index + str-length($search)),
+        $search,
+        $replace
+      );
+  }
+
+  @return $string;
+}
+
+// =============================================================================
+// Font Face
+// e.g.
+// @include font-face(
+//   'Noto Sans KR',
+//   '/resource/fonts/NotoSansKR-Thin',
+//   thin,
+//   'normal',
+//   woff2 ttf
+// );
+// @include font-face(Samplinal, fonts/Samplinal, 500, normal, eot woff2 woff);
+// =============================================================================
+@mixin font-face(
+  $name,
+  $path,
+  $weight: null,
+  $style: null,
+  $exts: eot woff2 woff ttf svg
+) {
+  $src: null;
+
+  $extmods: (
+    eot: '?#iefix',
+    svg: '#' + str-replace($name, ' ', '_'),
+  );
+
+  $formats: (
+    woff2: 'font-woff2',
+    otf: 'opentype',
+    ttf: 'truetype',
+  );
+
+  @each $ext in $exts {
+    $extmod: if(
+      map-has-key($extmods, $ext),
+      $ext + map-get($extmods, $ext),
+      $ext
+    );
+    $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+    $src: append(
+      $src,
+      url(quote($path + '.' + $extmod)) format(quote($format)),
+      comma
+    );
+  }
+
+  @font-face {
+    font-family: quote($name);
+    font-style: $style;
+    font-weight: $weight;
+    src: $src;
+  }
+}

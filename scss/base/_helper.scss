@@ -1,0 +1,23 @@
+//============
+// Base - Helper
+//============
+@use 'sass:math';
+@use '../abstracts' as helper;
+
+:root {
+  @each $label, $value in helper.$fonts {
+    --fs-#{$label}: #{map-get($value, 'font-size')};
+  }
+
+  @each $label, $colors in helper.$colors {
+    @if (type-of($colors) != 'map') {
+      $name: inspect($label);
+      --clr-#{$name}: #{$colors};
+    } @else {
+      @each $size, $value in $colors {
+        $name: inspect($label);
+        --clr-#{$name}-#{$size}: #{$value};
+      }
+    }
+  }
+}

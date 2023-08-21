@@ -1,0 +1,17 @@
+@use './spacing';
+
+$xs: 360px; // Portrait phones | Extra Small
+$sm: 544px; // Landscape phones | Small
+$md: 768px; // Tablets | Medium
+$lg: 1024px; // Desktops | Large
+$xl: spacing.$container-width; // Large Desktops | Extra
+$xxl: 1920px; // Desktops | Mega Large
+
+$breakpoints: (
+  xs: $xs - 1px,
+  sm: $sm,
+  md: $md,
+  lg: $lg,
+  xl: $xl,
+  xxl: $xxl,
+);

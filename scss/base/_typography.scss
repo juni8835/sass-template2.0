@@ -1,0 +1,23 @@
+@use 'sass:math';
+@use '../abstracts' as *;
+
+$NOTO_SANS_KR: 'Noto Sans KR';
+$NOTO_SANS_KR_FORMAT: (
+  thin: 'Thin',
+  light: 'Light',
+  normal: 'Regular',
+  medium: 'Medium',
+  bold: 'Bold',
+  black: 'Black',
+);
+
+@each $weight, $filename in $NOTO_SANS_KR_FORMAT {
+  @font-face {
+    font-family: $NOTO_SANS_KR;
+    font-style: normal;
+    font-weight: #{$weight};
+    src: local('NotoSansKR'),
+      url('/resource/fonts/NotoSansKR-#{$filename}.woff2') format('font-woff2'),
+      url('/resource/fonts/NotoSansKR-#{$filename}.ttf') format('truetype');
+  }
+}
